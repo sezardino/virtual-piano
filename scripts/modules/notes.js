@@ -1,21 +1,11 @@
-const TYPE = {
-  NOTES: 'Notes',
-  LETTERS: 'Letters',
-};
-
-const CLASSES = {
-  BTN_WRAPPER: '.btn-container',
-  BTN: 'btn',
-  BTN_ACTIVE: 'btn-active',
-  LETTERS: 'letter',
-};
+import { CLASSES, TYPE } from "../utils/const.js";
 
 class Notes {
   constructor() {
     this.type = TYPE.NOTES;
     this.buttonsWrapper = document.querySelector(CLASSES.BTN_WRAPPER);
-    this.buttons = this.buttonsWrapper.querySelectorAll('button');
-    this.pianoKeys = document.querySelectorAll('.piano-key');
+    this.buttons = this.buttonsWrapper.querySelectorAll("button");
+    this.pianoKeys = document.querySelectorAll(".piano-key");
 
     this.buttonWrapperHandler = this.buttonWrapperHandler.bind(this);
 
@@ -51,7 +41,7 @@ class Notes {
   }
 
   addListeners() {
-    this.buttonsWrapper.addEventListener('click', this.buttonWrapperHandler);
+    this.buttonsWrapper.addEventListener("click", this.buttonWrapperHandler);
   }
 
   _init() {

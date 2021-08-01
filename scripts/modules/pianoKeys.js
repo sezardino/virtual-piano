@@ -1,29 +1,11 @@
-const CLASSES = {
-  KEY: 'piano-key',
-};
-
-const TRIGGERS_KEYS = [
-  'D',
-  'F',
-  'G',
-  'H',
-  'J',
-  'K',
-  'L',
-  'R',
-  'T',
-  'Y',
-  'U',
-  'I',
-  'O',
-];
+import { CLASSES, TRIGGERS_KEYS } from "../utils/const.js";
 
 class PianoKeys {
   constructor() {
     this.play = false;
-    this.container = document.querySelector('.piano');
-    this.keys = Array.from(document.querySelectorAll('.' + CLASSES.KEY));
-    this.audio = document.querySelector('audio');
+    this.container = document.querySelector(".piano");
+    this.keys = Array.from(document.querySelectorAll("." + CLASSES.KEY));
+    this.audio = document.querySelector("audio");
     this.mousemoveActiveKey;
 
     this.containerMousedownHandler = this.containerMousedownHandler.bind(this);
@@ -35,18 +17,18 @@ class PianoKeys {
   }
 
   playAudio(item) {
-    item.classList.add('piano-key-active');
+    item.classList.add("piano-key-active");
 
-    this.audio.src = `./virtual-piano/assets/audio/${item.dataset.note}.mp3`;
+    this.audio.src = `/assets/audio/${item.dataset.note}.mp3`;
     this.audio.currentTime = 0;
     this.audio.play();
-    setTimeout(() => item.classList.remove('piano-key-active'), 400);
+    setTimeout(() => item.classList.remove("piano-key-active"), 400);
   }
 
   documentMousemoveHandler(evt) {
     const target = evt.target;
-    if(target.classList.contains(CLASSES.KEY)) {
-      if(this.mousemoveActiveKey !== target) {
+    if (target.classList.contains(CLASSES.KEY)) {
+      if (this.mousemoveActiveKey !== target) {
         this.mousemoveActiveKey = target;
         this.playAudio(target);
       }
@@ -59,12 +41,12 @@ class PianoKeys {
       this.playAudio(target);
     }
 
-    document.removeEventListener('mousemove', this.documentMousemoveHandler);
+    document.removeEventListener("mousemove", this.documentMousemoveHandler);
   }
 
   containerMousedownHandler() {
-    document.addEventListener('mousemove', this.documentMousemoveHandler);
-    document.addEventListener('mouseup', this.documentMouseupHandler);
+    document.addEventListener("mousemove", this.documentMousemoveHandler);
+    document.addEventListener("mouseup", this.documentMouseupHandler);
   }
 
   windowKeydownHandler(evt) {
@@ -83,7 +65,7 @@ class PianoKeys {
     if (TRIGGERS_KEYS.some((item) => item === key)) {
       this.keys.map((item) => {
         if (item.dataset.letter === key) {
-          if (evt.type === 'keydown') {
+          if (evt.type === "keydown") {
             if (this.play === false) {
               this.play = true;
               this.playAudio(item);
@@ -97,9 +79,12 @@ class PianoKeys {
   }
 
   addEventListeners() {
-    this.container.addEventListener('mousedown', this.containerMousedownHandler);
-    window.addEventListener('keydown', this.windowKeyHandler);
-    window.addEventListener('keyup', this.windowKeyHandler);
+    this.container.addEventListener(
+      "mousedown",
+      this.containerMousedownHandler
+    );
+    window.addEventListener("keydown", this.windowKeyHandler);
+    window.addEventListener("keyup", this.windowKeyHandler);
   }
 
   init() {
